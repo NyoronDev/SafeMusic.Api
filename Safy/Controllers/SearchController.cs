@@ -12,12 +12,12 @@ namespace Safy.Controllers
     [ApiController]
     public class SearchController : ControllerBase
     {
-        private readonly ISpotifySearchService spotifySearchService;
+        private readonly ISearchService searchService;
         private readonly ISearchMapper searchMapper;
 
-        public SearchController(ISpotifySearchService spotifySearchService, ISearchMapper searchMapper)
+        public SearchController(ISearchService searchService, ISearchMapper searchMapper)
         {
-            this.spotifySearchService = spotifySearchService;
+            this.searchService = searchService;
             this.searchMapper = searchMapper;
         }
 
@@ -26,7 +26,7 @@ namespace Safy.Controllers
         public async Task<ActionResult<IEnumerable<Song>>> Get(string searchName)
         {
             var searchTrack = new Search { Type = "track", Limit = 10, Query = searchName };
-            var searchResponse = await spotifySearchService.Search(searchTrack);
+            var searchResponse = await searchService.Search(searchTrack);
 
             var songList = this.searchMapper.MapToSongs(searchResponse);
             return Ok(songList);

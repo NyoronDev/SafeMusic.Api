@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace Safy.AppService.Infrastructure.Services
 {
-    public class SpotifySearchService : ISpotifySearchService
+    public class SearchService : ISearchService
     {
         private readonly string spotifyEndpoint = "https://api.spotify.com/v1/";
         private readonly ISpotifyAuthService SpotifyAuthService;
 
-        public SpotifySearchService(ISpotifyAuthService spotifyAuthService)
+        public SearchService(ISpotifyAuthService spotifyAuthService)
         {
             SpotifyAuthService = spotifyAuthService ?? throw new ArgumentNullException(nameof(spotifyAuthService));
         }
@@ -26,7 +26,8 @@ namespace Safy.AppService.Infrastructure.Services
             using (var content = new FormUrlEncodedContent(new Dictionary<string, string>()
             {
                 ["q"] = searchQuery.Query,
-                ["type"] = !string.IsNullOrEmpty(searchQuery.Type) ? searchQuery.Type : "artist,track,album",
+                ["type"] = !string.IsNullOrEmpty(searchQuery.Type) ? searchQuery.Type : "track",
+                //["market"] = searchQuery.Market,
                 ["limit"] = !string.IsNullOrEmpty(searchQuery.Limit.ToString()) ? searchQuery.Limit.ToString() : "10",
                 ["offset"] = searchQuery.OffSet.ToString(),
                 ["inclue_external"] = !string.IsNullOrEmpty(searchQuery.IncludeExternal) ? searchQuery.IncludeExternal : "audio"
@@ -35,10 +36,10 @@ namespace Safy.AppService.Infrastructure.Services
                 query = content.ReadAsStringAsync().Result;
             }
 
+            var token = await SpotifyAuthService.GetSpotifyToken();
+
             using (var client = new HttpClient())
             {
-                var token = await this.SpotifyAuthService.GetSpotifyToken();
-
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
                 var response = await client.GetAsync(new Uri($"{spotifyEndpoint}search/?{query}"));
                 var message = await response.Content.ReadAsStringAsync();
@@ -46,6 +47,7 @@ namespace Safy.AppService.Infrastructure.Services
                 return JsonConvert.DeserializeObject<SearchResponse>(message);
             }
         }
+
         public void PlaySong()
         {
             throw new NotImplementedException();
