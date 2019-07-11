@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Safy.AppService.Infrastructure.Contracts
 {
-    public interface ISpotifySearchService
+    public interface ISearchService
     {
         Task<SearchResponse> Search(Search searchQuery);
     }
