@@ -10,6 +10,7 @@
 *.userosscache
 *.sln.docstates
 *.ncrunchsolution
+*.analplay.db
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
