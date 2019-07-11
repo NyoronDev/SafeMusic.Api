@@ -9,5 +9,7 @@
         public string Image { get; set; }
 
         public string Id { get; set; }
+
+        public string Album { get; set; }
     }
 }

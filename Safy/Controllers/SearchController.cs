@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Safy.Api.Mappers;
 using Safy.Api.Models;
 using Safy.AppService.Infrastructure.Contracts;
 using Safy.AppService.Models.Request;
@@ -11,11 +12,13 @@ namespace Safy.Controllers
     [ApiController]
     public class SearchController : ControllerBase
     {
-        private readonly ISpotifySearchService spotifySearchService;
+        private readonly ISearchService searchService;
+        private readonly ISearchMapper searchMapper;
 
-        public SearchController(ISpotifySearchService spotifySearchService)
+        public SearchController(ISearchService searchService, ISearchMapper searchMapper)
         {
-            this.spotifySearchService = spotifySearchService;
+            this.searchService = searchService;
+            this.searchMapper = searchMapper;
         }
 
         // GET api/search/searchName
@@ -23,12 +26,10 @@ namespace Safy.Controllers
         public async Task<ActionResult<IEnumerable<Song>>> Get(string searchName)
         {
             var searchTrack = new Search { Type = "track", Limit = 10, Query = searchName };
-            var searchResponse = await spotifySearchService.Search(searchTrack);
+            var searchResponse = await searchService.Search(searchTrack);
 
-            var search1 = new Song { Artist = "Artist1", Id = "Id1", Image = "Image1", Name = "Track1" };
-            var search2 = new Song { Artist = "Artist2", Id = "Id2", Image = "Image2", Name = "Track2" };
-            var search3 = new Song { Artist = "Artist3", Id = "Id3", Image = "Image3", Name = "Track3" };
-            return new List<Song> { search1, search2, search3 };
+            var songList = this.searchMapper.MapToSongs(searchResponse);
+            return Ok(songList);
         }
     }
 }
