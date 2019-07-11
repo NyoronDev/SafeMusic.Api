@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safy.Api", "Safy\Safy.Api.csproj", "{89A03427-7CD0-4B8B-B713-8AA0AA597AC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Safy.Api", "Safy\Safy.Api.csproj", "{89A03427-7CD0-4B8B-B713-8AA0AA597AC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Safy.AppService", "Safy.AppService\Safy.AppService.csproj", "{449FFF59-E7BB-4334-BCBE-795C568ED7C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Safy.AppService", "Safy.AppService\Safy.AppService.csproj", "{449FFF59-E7BB-4334-BCBE-795C568ED7C6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Safy.UnitTests", "Safy.UnitTests\Safy.UnitTests.csproj", "{DFEC3837-31C2-4568-909D-8976BCDAD292}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{449FFF59-E7BB-4334-BCBE-795C568ED7C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{449FFF59-E7BB-4334-BCBE-795C568ED7C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{449FFF59-E7BB-4334-BCBE-795C568ED7C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFEC3837-31C2-4568-909D-8976BCDAD292}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFEC3837-31C2-4568-909D-8976BCDAD292}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFEC3837-31C2-4568-909D-8976BCDAD292}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFEC3837-31C2-4568-909D-8976BCDAD292}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
