@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:52573/api/'
+  apiUrl: 'https://safenedsoundsystemapi.azurewebsites.net/api/'
 };
 
 /*
