@@ -18,7 +18,7 @@ namespace Safy.AppService.Models.SearchResponse
         public int Duration { get; set; }
 
         [JsonProperty("explicit")]
-        public int Explicit { get; set; }
+        public bool Explicit { get; set; }
 
         [JsonProperty("external_ids")]
         public ExternalIds ExternalIds { get; set; }
