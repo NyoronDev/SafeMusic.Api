@@ -1,5 +1,7 @@
 ﻿using System;
 using FluentAssertions;
+using Microsoft.Extensions.Configuration;
+using Moq;
 using Safy.AppService.Infrastructure.Contracts;
 using Safy.AppService.Infrastructure.Services;
 using Safy.AppService.Models;
@@ -13,11 +15,9 @@ namespace Safy.UnitTests.UserTests
 
         public UserRepositoryTests()
         {
-            var dbConfig = new DbConfig()
-            {
-                DbLocation = "C:/Repos/SafeMusic.Api/db/analplay.db"
-            };
-            userRepository = new UserRepository(dbConfig);
+            var mockConfiguration = new Mock<IConfiguration>();
+            mockConfiguration.SetupGet(s => s[It.IsAny<string>()]).Returns("C:/Repos/SafeMusic.Api/db/analplay.db");
+            userRepository = new UserRepository(mockConfiguration.Object);
         }
 
         [Fact]

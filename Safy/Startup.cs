@@ -23,11 +23,21 @@ namespace Safy
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddSwaggerGen(options =>
+            {
+                options.DescribeAllEnumsAsStrings();
+                options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
+                {
+                    Version = "v1",
+                    Title = "Safy API"
+                });
+            });
 
             services.AddScoped<ISpotifyAuthService, SpotifyAuthService>();
             services.AddScoped<ISearchService, SearchService>();
             services.AddScoped<IPlaylistService, PlaylistService>();           
             services.AddScoped<ISearchMapper, SearchMapper>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +55,11 @@ namespace Safy
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseSwagger()
+              .UseSwaggerUI(c =>
+              {
+                  c.SwaggerEndpoint("/swagger/v1/swagger.json", "Safy Api V1");
+              });
         }
     }
 }
