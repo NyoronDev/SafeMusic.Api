@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Safy.AppService.Infrastructure.Contracts;
+using Safy.AppService.Infrastructure.Services;
 
 namespace Safy.Controllers
 {
@@ -10,11 +12,30 @@ namespace Safy.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        public readonly ISearchService SearchService;
+        public readonly IPlaylistService PlaylistService;
+
+        public ValuesController(ISearchService searchService, IPlaylistService playlistService)
+        {
+            SearchService = searchService;
+            PlaylistService = playlistService;
+        }
+
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task Get()
         {
-            return new string[] { "value1", "value2" };
+            var playlist = PlaylistService.GetPlaylist();
+
+            var result = await SearchService.Search(
+            new AppService.Models.Request.Search
+            {
+                Query = "love in elevator",
+                Limit = 10,
+                Type = "track"
+            });
+
+
         }
 
         // GET api/values/5
