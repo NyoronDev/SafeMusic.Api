@@ -1,4 +1,5 @@
 ﻿using LiteDB;
+using Microsoft.Extensions.Configuration;
 using Safy.AppService.Infrastructure.Contracts;
 using Safy.AppService.Models;
 
@@ -6,16 +7,16 @@ namespace Safy.AppService.Infrastructure.Services
 {
     public class UserRepository : IUserRepository
     {
-        private readonly DbConfig dbConfig;
+        private string dbLocation;
 
-        public UserRepository(DbConfig dbConfig)
+        public UserRepository(IConfiguration configuration)
         {
-            this.dbConfig = dbConfig;
+            dbLocation = configuration["DbLocation"];
         }
 
         public User GetUserById(int id)
         {
-            using (var db = new LiteDatabase(dbConfig.DbLocation))
+            using (var db = new LiteDatabase(dbLocation))
             {
                 var userCollection = db.GetCollection<User>("users");
                 var user = userCollection.FindById(id);
@@ -26,7 +27,7 @@ namespace Safy.AppService.Infrastructure.Services
 
         public User GetUser(string emailAddress)
         {
-            using (var db = new LiteDatabase(dbConfig.DbLocation))
+            using (var db = new LiteDatabase(dbLocation))
             {
                 var userCollection = db.GetCollection<User>("users");
                 var user = userCollection.FindOne(u => u.EmailAddress == emailAddress);
@@ -37,7 +38,7 @@ namespace Safy.AppService.Infrastructure.Services
 
         public bool SaveUser(User user)
         {
-            using (var db = new LiteDatabase(dbConfig.DbLocation))
+            using (var db = new LiteDatabase(dbLocation))
             {
                 var userCollection = db.GetCollection<User>("users");
                 userCollection.EnsureIndex(u => u.Id);
