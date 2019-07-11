@@ -28,7 +28,7 @@ namespace Safy
                 builder =>
                 {
                     builder.WithOrigins("https://safenedsoundsystemapi.azurewebsites.net",
-                                        "https://nyorondev.github.io/SafeMusic.Api");
+                                        "https://nyorondev.github.io");
                 });
             });
 
