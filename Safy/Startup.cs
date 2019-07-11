@@ -30,7 +30,7 @@ namespace Safy
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddScoped<ISpotifyAuthService, SpotifyAuthService>();
-            services.AddScoped<ISpotifyService, SpotifyService>();
+            services.AddScoped<ISpotifySearchService, SpotifySearchService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,0 +1,40 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { MusicService } from './music.service';
+import { Observable } from 'rxjs';
+import { Song } from './song.interface';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+export class AppComponent implements OnInit {
+  title = 'safemusic';
+  musicForm: FormGroup;
+  result: Song[] = [];
+
+  constructor(
+    private musicService: MusicService, private formBuilder: FormBuilder ) { }
+
+  ngOnInit() {
+    this.musicForm  =  this.formBuilder.group({
+      search: ['', Validators.required]
+    });
+  }
+
+  get formControls() { return this.musicForm.controls; }
+
+  search() {
+    if (this.musicForm.invalid) {
+      return;
+    }
+    this.musicService.search(this.musicForm.value.search).subscribe(
+      result => this.result = result
+    );
+  }
+
+  onAddToPlaylist(songId: string) {
+    this.musicService.addToPlaylist(songId);
+  }
+}

@@ -6,17 +6,16 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Safy.AppService.Infrastructure.Services
 {
-    public class SpotifyService : ISpotifyService
+    public class SpotifySearchService : ISpotifySearchService
     {
         private readonly string spotifyEndpoint = "https://api.spotify.com/v1/";
         private readonly ISpotifyAuthService SpotifyAuthService;
 
-        public SpotifyService(ISpotifyAuthService spotifyAuthService)
+        public SpotifySearchService(ISpotifyAuthService spotifyAuthService)
         {
             SpotifyAuthService = spotifyAuthService ?? throw new ArgumentNullException(nameof(spotifyAuthService));
         }
@@ -28,7 +27,6 @@ namespace Safy.AppService.Infrastructure.Services
             {
                 ["q"] = searchQuery.Query,
                 ["type"] = !string.IsNullOrEmpty(searchQuery.Type) ? searchQuery.Type : "artist,track,album",
-                //["market"] = searchQuery.Market,
                 ["limit"] = !string.IsNullOrEmpty(searchQuery.Limit.ToString()) ? searchQuery.Limit.ToString() : "10",
                 ["offset"] = searchQuery.OffSet.ToString(),
                 ["inclue_external"] = !string.IsNullOrEmpty(searchQuery.IncludeExternal) ? searchQuery.IncludeExternal : "audio"

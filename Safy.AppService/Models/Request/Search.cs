@@ -8,7 +8,6 @@ namespace Safy.AppService.Models.Request
     {
         public string Query { get; set; }
         public string Type { get; set; }
-        public string Market { get; set; }
         public int Limit { get; set; }
         public int OffSet { get; set; }
         public string IncludeExternal { get; set; }

@@ -1,0 +1,57 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div id="bg">
+  <img alt="Background" id="bg" src="../assets//img/soundwave.jpg">
+</div>
+<div class="main">
+  <img width="300" class="logo" alt="Angular Logo" src="../assets/img/safemusic.jpg">
+  <br>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <form [formGroup]="musicForm" (ngSubmit)="search()">
+          <div class="input-group mb-3">
+            <input type="text" formControlName="search" class="form-control" placeholder="Song to look on" aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+              <button class="btn btn-outline-primary" type="submit">SEARCH</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Image</th>
+                <th scope="col">Track</th>
+                <th scope="col">Artist</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let song of result; let i = index">
+                  <th scope="row">{{ i }}</th>
+                  <td><img width="120" [src]="song.image" [alt]="song.name"></td>
+                  <td>{{ song.name }}</td>
+                  <td>{{ song.artist }}</td>
+                  <td>
+                    <button type="button"
+                      class="btn btn-primary"
+                      (click)="onAddToPlaylist(song.id)">
+                      Add
+                    </button>
+                  </td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
