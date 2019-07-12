@@ -48,6 +48,7 @@ namespace Safy
             services.AddScoped<IPlaylistService, PlaylistService>();           
             services.AddScoped<ISearchMapper, SearchMapper>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddTransient<IHashService, HashService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
