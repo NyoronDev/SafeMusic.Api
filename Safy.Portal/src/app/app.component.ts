@@ -68,7 +68,7 @@ export class AppComponent implements OnInit {
     if (this.email.nativeElement.value !== '' && this.password.nativeElement.value !== '') {
       this.username = this.email.nativeElement.value;
 
-       window.location.href = environment.spotifyUrl + this.username;
+       window.location.href = environment.spotifyUrl;
     }
   }
 }
