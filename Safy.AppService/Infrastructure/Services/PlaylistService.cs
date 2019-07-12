@@ -22,13 +22,11 @@ namespace Safy.AppService.Infrastructure.Services
             SpotifyAuthService = spotifyAuthService ?? throw new ArgumentNullException(nameof(spotifyAuthService)); ;
         }
 
-        public async Task<Item> GetPlaylist()
+        public async Task<Item> GetPlaylist(string token)
         {
-            var token = await SpotifyAuthService.GetSpotifyToken();
-
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.AccessToken);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 var response = await client.GetAsync(new Uri($"{spotifyEndpoint}/playlists"));
                 var message = await response.Content.ReadAsStringAsync();
 

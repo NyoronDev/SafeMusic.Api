@@ -5,7 +5,7 @@ namespace Safy.AppService.Infrastructure.Contracts
 {
     public interface IPlaylistService
     {
-        Task<Item> GetPlaylist();
+        Task<Item> GetPlaylist(string token);
         Task<bool> AddTrackToPlaylist(string playlistId, string trackId, string token);
     }
 }
