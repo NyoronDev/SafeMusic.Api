@@ -15,7 +15,11 @@ export class AppComponent implements OnInit {
   musicForm: FormGroup;
   result: Song[] = [];
   @ViewChild('content', null) modal: ElementRef;
+  showLogin: Boolean = true;
+  @ViewChild('email', null) email: ElementRef;
+  @ViewChild('password', null) password: ElementRef;
   message: string;
+  username: String = '';
 
   constructor(
     private musicService: MusicService,
@@ -26,14 +30,13 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     if (window.location.href.indexOf('access_token') > 0 && window.location.href.split('access_token=').length > 0) {
       this.musicService.spotifyToken = window.location.href.split('access_token=')[1].split('&token_type')[0];
-    } else {
-      window.location.href = environment.spotifyUrl;
+      this.showLogin = false;
     }
 
     this.musicForm  =  this.formBuilder.group({
       search: ['', Validators.required]
     });
-  }
+   }
 
   get formControls() { return this.musicForm.controls; }
 
@@ -51,7 +54,6 @@ export class AppComponent implements OnInit {
     this.musicService.addToPlaylist(songId)
       .subscribe(
         result => {
-          this.result = [];
           this.message = 'The song has been aded to the playlist, enjoy!';
           this.modalService.open(this.modal, {ariaLabelledBy: 'modal-basic-title'});
         },
@@ -60,5 +62,13 @@ export class AppComponent implements OnInit {
           this.modalService.open(this.modal, {ariaLabelledBy: 'modal-basic-title'});
         }
       );
+  }
+
+  onLogin() {
+    if (this.email.nativeElement.value !== '' && this.password.nativeElement.value !== '') {
+      this.username = this.email.nativeElement.value;
+
+       window.location.href = environment.spotifyUrl + this.username;
+    }
   }
 }
