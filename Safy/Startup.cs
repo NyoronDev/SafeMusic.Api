@@ -31,6 +31,11 @@ namespace Safy
                                         "https://safenedsoundsystemapi.azurewebsites.net/api/search",
                                         "https://nyorondev.github.io");
                 });
+
+                options.AddPolicy("PostPolicy",
+                builder => builder.AllowAnyOrigin()
+                .WithMethods("POST")
+                .WithHeaders("x-chmura-cors", "Content-Type"));
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
