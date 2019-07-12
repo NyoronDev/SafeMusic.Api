@@ -38,8 +38,8 @@ namespace Safy.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(AddSong addSong)
         {
-            var playlist = await this.playlistService.GetPlaylist(addSong.Token);
-            await this.playlistService.AddTrackToPlaylist(playlist.Id, addSong.TrackId, addSong.Token);
+            // var playlist = await this.playlistService.GetPlaylist(addSong.Token);
+            await this.playlistService.AddTrackToPlaylist("3YuadZiUHqqrx2BJKqjKZr", addSong.TrackId, addSong.Token);
 
             return Ok();
         }
