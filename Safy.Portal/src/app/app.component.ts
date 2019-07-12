@@ -27,6 +27,7 @@ export class AppComponent implements OnInit {
       this.musicService.spotifyToken = this.route.snapshot.paramMap.get('access_token');
       alert(this.musicService.spotifyToken);
     } else {
+      alert(this.musicService.spotifyToken);
       window.location.href = environment.spotifyUrl;
     }
 
