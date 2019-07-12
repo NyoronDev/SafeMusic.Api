@@ -22,5 +22,25 @@ namespace Safy.Api.Controllers
 
             return user;
         }
+
+        [Route("/v1/users")]
+        [HttpPost]
+        public int RegisterUser(NewUser newUser)
+        {
+            var userId = userRepository.RegisterUser(newUser);
+
+            return userId;
+        }
+
+        [Route("/v1/loginuser")]
+        [HttpPost]
+        public bool Login(LoginUser loginUser)
+        {
+            var isLoggedIn = userRepository.LoginUser(loginUser);
+
+            return isLoggedIn;
+        }
+
+
     }
 }
