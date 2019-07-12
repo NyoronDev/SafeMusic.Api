@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MusicService } from './music.service';
-import { Observable } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Song } from './song.interface';
 import { environment } from 'src/environments/environment';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -15,11 +14,12 @@ export class AppComponent implements OnInit {
   title = 'safemusic';
   musicForm: FormGroup;
   result: Song[] = [];
+  @ViewChild('content', null) modal: ElementRef;
 
   constructor(
     private musicService: MusicService,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private modalService: NgbModal
      ) { }
 
   ngOnInit() {
@@ -40,12 +40,19 @@ export class AppComponent implements OnInit {
     if (this.musicForm.invalid) {
       return;
     }
-    this.musicService.search(this.musicForm.value.search).subscribe(
-      result => this.result = result
-    );
+    this.musicService.search(this.musicForm.value.search)
+      .subscribe(
+        result => this.result = result
+      );
   }
 
   onAddToPlaylist(songId: string) {
-    this.musicService.addToPlaylist(songId).subscribe();
+    this.musicService.addToPlaylist(songId)
+      .subscribe(
+        result => {
+          this.result = [];
+          this.modalService.open(this.modal, {ariaLabelledBy: 'modal-basic-title'});
+        }
+      );
   }
 }
