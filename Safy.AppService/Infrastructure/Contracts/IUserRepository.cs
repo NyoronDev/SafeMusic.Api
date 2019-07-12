@@ -1,4 +1,5 @@
-﻿using Safy.AppService.Models;
+﻿using System.Collections.Generic;
+using Safy.AppService.Models;
 
 namespace Safy.AppService.Infrastructure.Contracts
 {
@@ -6,6 +7,12 @@ namespace Safy.AppService.Infrastructure.Contracts
     {
         User GetUserById(int id);
         User GetUser(string emailAddress);
-        bool SaveUser(User user);
+        List<User> GetUsers(int page, int size);
+        bool UpdateUser(User user);
+        //bool SaveUser(User user);
+        int DeleteAllUsers();
+
+        int RegisterUser(NewUser newUser);
+        bool LoginUser(LoginUser loginUser);
     }
 }
