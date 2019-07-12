@@ -61,29 +61,6 @@ namespace Safy.AppService.Infrastructure.Services
 
                 return response.IsSuccessStatusCode;
             }
-
-            //// Build URL
-            //var url = $"{this.addressService}{this.Suffix}{this.serviceRoute}?{this.requestId}{requestId.Value.ToString()}&";
-
-            //// Tenant
-            //using (var client = new HttpClient())
-            //using (var request = new HttpRequestMessage())
-            //{
-            //    // Create content
-            //    var content = new StringContent(JsonConvert.SerializeObject(address));
-            //    content.Headers.ContentType.MediaType = this.JsonMediaType;
-
-            //    // Create request
-            //    request.Content = content;
-            //    request.Method = new HttpMethod("POST");
-
-            //    request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
-
-            //    // Response
-            //    var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, CancellationToken.None).ConfigureAwait(false);
-
-            //    return await this.CreateSwaggerResponse(response);
-            //}
         }
     }
 }

@@ -27,7 +27,6 @@ namespace Safy.AppService.Infrastructure.Services
             {
                 ["q"] = searchQuery.Query,
                 ["type"] = !string.IsNullOrEmpty(searchQuery.Type) ? searchQuery.Type : "track",
-                //["market"] = searchQuery.Market,
                 ["limit"] = !string.IsNullOrEmpty(searchQuery.Limit.ToString()) ? searchQuery.Limit.ToString() : "10",
                 ["offset"] = searchQuery.OffSet.ToString(),
                 ["inclue_external"] = !string.IsNullOrEmpty(searchQuery.IncludeExternal) ? searchQuery.IncludeExternal : "audio"
