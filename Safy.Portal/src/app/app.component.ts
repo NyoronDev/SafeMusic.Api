@@ -47,6 +47,6 @@ export class AppComponent implements OnInit {
   }
 
   onAddToPlaylist(songId: string) {
-    this.musicService.addToPlaylist(songId);
+    this.musicService.addToPlaylist(songId).subscribe();
   }
 }

@@ -19,10 +19,10 @@ export class MusicService {
   search(searchText: string): Observable<Song[]> {
     console.log(searchText);
 
-    return this.httpClient.get<Song[]>(environment.apiUrl + 'search/' + searchText);
+    return this.httpClient.get<Song[]>(`${environment.apiUrl}search/${searchText}`);
   }
 
-  addToPlaylist(songId: string) {
-    console.log('ID: ' + songId);
+  addToPlaylist(songId: string): Observable<any> {
+    return this.httpClient.post(`${environment.apiUrl}search`, { 'track-id': songId, 'token': this.search });
   }
 }
