@@ -14,11 +14,13 @@ namespace Safy.Controllers
     {
         private readonly ISearchService searchService;
         private readonly ISearchMapper searchMapper;
+        private readonly IPlaylistService playlistService;
 
-        public SearchController(ISearchService searchService, ISearchMapper searchMapper)
+        public SearchController(ISearchService searchService, ISearchMapper searchMapper, IPlaylistService playlistService)
         {
             this.searchService = searchService;
             this.searchMapper = searchMapper;
+            this.playlistService = playlistService;
         }
 
         // GET api/search/searchName
@@ -30,6 +32,16 @@ namespace Safy.Controllers
 
             var songList = this.searchMapper.MapToSongs(searchResponse);
             return Ok(songList);
+        }
+
+        // POST api/search
+        [HttpPost]
+        public async Task<ActionResult> Post(AddSong addSong)
+        {
+            var playlist = await this.playlistService.GetPlaylist();
+            await this.playlistService.AddTrackToPlaylist(playlist.Id, addSong.TrackId, addSong.Token);
+
+            return Ok();
         }
     }
 }
