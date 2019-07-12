@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Safy.Api.Mappers;
@@ -21,13 +22,32 @@ namespace Safy
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("_myAllowSpecificOrigins",
+                builder =>
+                {
+                    builder.WithOrigins("https://safenedsoundsystemapi.azurewebsites.net",
+                                        "https://nyorondev.github.io");
+                });
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddSwaggerGen(options =>
+            {
+                options.DescribeAllEnumsAsStrings();
+                options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
+                {
+                    Version = "v1",
+                    Title = "Safy API"
+                });
+            });
 
             services.AddScoped<ISpotifyAuthService, SpotifyAuthService>();
             services.AddScoped<ISearchService, SearchService>();
             services.AddScoped<IPlaylistService, PlaylistService>();           
             services.AddScoped<ISearchMapper, SearchMapper>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,10 +63,15 @@ namespace Safy
                 app.UseHsts();
             }
 
-            app.UseCors("AllowAnyOrigin");
+            app.UseCors("_myAllowSpecificOrigins");
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseSwagger()
+              .UseSwaggerUI(c =>
+              {
+                  c.SwaggerEndpoint("/swagger/v1/swagger.json", "Safy Api V1");
+              });
         }
     }
 }
