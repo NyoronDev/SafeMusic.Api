@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   musicForm: FormGroup;
   result: Song[] = [];
   @ViewChild('content', null) modal: ElementRef;
+  message: string;
 
   constructor(
     private musicService: MusicService,
@@ -51,6 +52,11 @@ export class AppComponent implements OnInit {
       .subscribe(
         result => {
           this.result = [];
+          this.message = 'The song has been aded to the playlist, enjoy!';
+          this.modalService.open(this.modal, {ariaLabelledBy: 'modal-basic-title'});
+        },
+        err => {
+          this.message = 'The song was unable to be added, sorry!';
           this.modalService.open(this.modal, {ariaLabelledBy: 'modal-basic-title'});
         }
       );
