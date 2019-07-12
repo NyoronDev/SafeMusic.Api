@@ -23,11 +23,11 @@ export class AppComponent implements OnInit {
      ) { }
 
   ngOnInit() {
+    alert(this.route.snapshot.paramMap.get('access_token'));
     if (this.route.snapshot.paramMap.get('access_token')) {
       this.musicService.spotifyToken = this.route.snapshot.paramMap.get('access_token');
       alert(this.musicService.spotifyToken);
     } else {
-      alert(this.musicService.spotifyToken);
       window.location.href = environment.spotifyUrl;
     }
 
