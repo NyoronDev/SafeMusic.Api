@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MusicService } from './music.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { MusicService } from './music.service';
     ReactiveFormsModule,
     FormsModule,
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [MusicService],
   bootstrap: [AppComponent]
