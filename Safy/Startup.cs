@@ -29,13 +29,8 @@ namespace Safy
                 {
                     builder.WithOrigins("https://safenedsoundsystemapi.azurewebsites.net",
                                         "https://safenedsoundsystemapi.azurewebsites.net/api/search",
-                                        "https://nyorondev.github.io");
+                                        "https://nyorondev.github.io").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
                 });
-
-                options.AddPolicy("PostPolicy",
-                builder => builder.AllowAnyOrigin()
-                .WithMethods("POST")
-                .WithHeaders("x-chmura-cors", "Content-Type"));
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -70,7 +65,6 @@ namespace Safy
             }
 
             app.UseCors("_myAllowSpecificOrigins");
-            app.UseCors("PostPolicy");
 
             app.UseHttpsRedirection();
             app.UseMvc();
