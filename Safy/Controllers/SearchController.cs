@@ -39,9 +39,14 @@ namespace Safy.Controllers
         public async Task<ActionResult> Post(AddSong addSong)
         {
             // var playlist = await this.playlistService.GetPlaylist(addSong.Token);
-            await this.playlistService.AddTrackToPlaylist("3YuadZiUHqqrx2BJKqjKZr", addSong.TrackId, addSong.Token);
+            var isSucceeded = await this.playlistService.AddTrackToPlaylist("3YuadZiUHqqrx2BJKqjKZr", addSong.TrackId, addSong.Token);
 
-            return Ok();
+            if (isSucceeded)
+            {
+                return Ok();
+            }
+
+            return StatusCode(500);
         }
     }
 }
