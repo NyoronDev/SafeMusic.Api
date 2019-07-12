@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Song } from './song.interface';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MusicService {
+
+  spotifyToken = '';
 
   constructor(
     private  httpClient: HttpClient
