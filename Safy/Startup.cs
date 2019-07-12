@@ -70,6 +70,7 @@ namespace Safy
             }
 
             app.UseCors("_myAllowSpecificOrigins");
+            app.UseCors("PostPolicy");
 
             app.UseHttpsRedirection();
             app.UseMvc();
